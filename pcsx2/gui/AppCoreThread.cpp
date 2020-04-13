@@ -615,24 +615,6 @@ void AppCoreThread::DoCpuExecute()
 	catch (BaseR5900Exception& ex)
 	{
 		Console.Error( ex.FormatMessage() );
-
-		// [TODO] : Debugger Hook!
-
-		if( ++m_except_threshold > 6 )
-		{
-			// If too many TLB Misses occur, we're probably going to crash and
-			// the game is probably running miserably.
-
-			m_except_threshold = 0;
-			//Suspend();
-
-			// [TODO] Issue error dialog to the user here...
-			Console.Error( "Too many execution errors.  VM execution has been suspended!" );
-
-			// Hack: this keeps the EE thread from running more code while the SysExecutor
-			// thread catches up and signals it for suspension.
-			m_ExecMode = ExecMode_Closing;
-		}
 	}
 }
 
